@@ -52,10 +52,10 @@ nav a {
     text-decoration: none;
 }
 nav a:hover {
-    margin-bottom: 5px;
+    padding: 10px;
     background-color: white;
     color:black;
-    transform: skew(-15deg);
+    border-radius: 15px;
 }
 section {
   min-height: 100vh;
@@ -270,6 +270,7 @@ h3.jersey-15-regular {
     height: 250px;      /* Aumentada la altura */
     background: white;
     border-radius: 15px;
+    box-shadow: 0 5px 25px rgba(14, 126, 111, 0.356);
     padding: 25px;      /* Aumentado el padding */
     /* box-shadow: 0 5px 25px rgba(255, 255, 255, 0.356); */
     display: flex;
