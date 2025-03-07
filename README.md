@@ -1,2 +1,2 @@
-## vista en tiempo real
+## Vista en tiempo real
 https://cechevarria.netlify.app/
