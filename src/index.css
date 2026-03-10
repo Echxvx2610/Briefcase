@@ -1,0 +1,30 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: Inter, sans-serif;
+  --animate-marquee: marquee 100s linear infinite;
+
+  @keyframes marquee {
+    0% {
+      transform: translateX(0%);
+    }
+
+    100% {
+      transform: translateX(-100%);
+    }
+  }
+}
+
+@layer base {
+  body {
+    @apply antialiased bg-black text-white selection:bg-white selection:text-black;
+  }
+}
+
+@utility clip-path-half {
+  clip-path: polygon(0 0, 50% 0, 50% 100%, 0 100%);
+}
+
+@utility clip-path-half-right {
+  clip-path: polygon(50% 0, 100% 0, 100% 100%, 50% 100%);
+}
