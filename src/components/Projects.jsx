@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
-import { Github, ExternalLink, Star, GitFork, Globe } from 'lucide-react';
+import { ExternalLink, Globe } from 'lucide-react';
 
 // Importar logos
 import logoDjango from '../assets/logos/django.svg';
@@ -37,82 +37,50 @@ const TECH_LOGOS = [
     { name: 'JavaScript', src: logoJss }
 ];
 
-// Reemplaza "Echxvx2610" con tu usuario de GitHub
-const GITHUB_USERNAME = 'Echxvx2610';
-
-// Proyectos personalizados que no necesariamente son repositorios de GitHub (e.g., sitios en producción)
 const CUSTOM_PROJECTS = [
     {
-        id: 'external-1',
-        isExternal: true,
-        name: 'Sitio Web Corporativo',
-        description: 'Desarrollo de landing page y sistema de gestión para empresa local.',
-        language: 'Next.js',
-        html_url: 'https://ejemplo.com',
+        id: 'nextfree',
+        name: 'Nextfree',
+        description: 'Plataforma web moderna y responsiva desarrollada para Nextfree, ofreciendo una experiencia de usuario optimizada y un diseño de vanguardia.',
+        techStack: ['React', 'Next.js', 'Tailwind', 'Shadcn UI'],
+        html_url: 'https://next-free.vercel.app/',
+        icon: Globe
+    },
+    {
+        id: 'crecer-psicologia',
+        name: 'Crecer Psicología',
+        description: 'Sitio web profesional para Crecer Psicología, enfocado en la accesibilidad, diseño amigable e información clara para los pacientes.',
+        techStack: ['React', 'Next.js', 'Tailwind'],
+        html_url: 'https://crecer-murex.vercel.app/',
+        icon: Globe
+    },
+    {
+        id: 'villa-garven',
+        name: 'Villa Garven',
+        description: 'Presencia digital para Villa Garven. Landing page y sistema diseñado con tecnologías modernas para un rendimiento óptimo.',
+        techStack: ['React', 'Next.js', 'Python', 'FastAPI'],
+        html_url: 'https://villagarvenweb.netlify.app/',
         icon: Globe
     }
 ];
 
-const PINNED_REPOS = [
-    'appBudget',
-    'sistema_tickets',
-    'RegistroReparaciones',
-    'django_mantto_feeder',
-    'Sistema_inventario',
-    'figuras_geometricas'
-];
+// Animaciones
+const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+        opacity: 1,
+        transition: {
+            staggerChildren: 0.2
+        }
+    }
+};
+
+const itemVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
+};
 
 const Projects = () => {
-    const [repos, setRepos] = useState([]);
-    const [loading, setLoading] = useState(true);
-
-    useEffect(() => {
-        const fetchRepos = async () => {
-            try {
-                // Obtenemos repositorios recientes
-                const response = await fetch(`https://api.github.com/users/${GITHUB_USERNAME}/repos?sort=updated&per_page=100`);
-                if (!response.ok) throw new Error('Failed to fetch');
-                const data = await response.json();
-
-                let fetchedRepos = [];
-
-                if (PINNED_REPOS.length > 0) {
-                    // Si el usuario definió 'pinned repos', los filtramos
-                    // Convertimos a minúsculas para evitar problemas de mayúsculas
-                    const pinnedLower = PINNED_REPOS.map(name => name.toLowerCase());
-                    fetchedRepos = data.filter(repo => pinnedLower.includes(repo.name.toLowerCase()));
-                } else {
-                    // Fallback: mostrar solo los 6 repositorios más recientes que no sean forks
-                    fetchedRepos = data.filter(repo => !repo.fork).slice(0, 6);
-                }
-
-                // Homogeneizar los datos de GitHub para que coincidan con la estructura de CUSTOM_PROJECTS
-                const formattedGithubRepos = fetchedRepos.map(repo => ({
-                    id: repo.id,
-                    isExternal: false,
-                    name: repo.name,
-                    description: repo.description,
-                    language: repo.language,
-                    html_url: repo.html_url,
-                    stargazers_count: repo.stargazers_count,
-                    forks_count: repo.forks_count,
-                    icon: Github
-                }));
-
-                // Combinamos los custom con los extraídos de github
-                setRepos([...CUSTOM_PROJECTS, ...formattedGithubRepos]);
-            } catch (error) {
-                console.error("Error fetching repos:", error);
-                // Si falla GitHub, mostramos al menos los proyectos personalizados
-                setRepos(CUSTOM_PROJECTS);
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetchRepos();
-    }, []);
-
     return (
         <section className="bg-white text-black overflow-hidden pb-32">
             {/* Infinite Marquee Banner */}
@@ -136,82 +104,76 @@ const Projects = () => {
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
+                    viewport={{ once: true, margin: "-100px" }}
+                    transition={{ duration: 0.8 }}
                     className="flex flex-col md:flex-row md:items-end justify-between mb-16"
                 >
                     <div>
                         <h2 className="text-5xl md:text-7xl font-bold tracking-tighter">TRABAJOS</h2>
-                        <p className="mt-4 text-gray-500 font-light text-lg">Explora mis desarrollos y repositorios recientes.</p>
+                        <p className="mt-4 text-gray-500 font-light text-lg">Explora mis proyectos recientes en producción.</p>
                     </div>
-                    <a
-                        href={`https://github.com/${GITHUB_USERNAME}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="mt-6 md:mt-0 flex items-center gap-2 pb-1 border-b border-black hover:pr-4 transition-all"
-                    >
-                        Ver Github <Github size={18} />
-                    </a>
                 </motion.div>
 
-                {loading ? (
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                        {[1, 2, 3, 4, 5, 6].map((i) => (
-                            <div key={i} className="h-64 bg-gray-100 animate-pulse rounded-2xl"></div>
-                        ))}
-                    </div>
-                ) : (
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 pointer-events-auto">
-                        {repos.map((repo, idx) => {
-                            const IconComponent = repo.icon;
-                            return (
-                                <motion.div
-                                    key={repo.id}
-                                    initial={{ opacity: 0, y: 20 }}
-                                    whileInView={{ opacity: 1, y: 0 }}
-                                    viewport={{ once: true }}
-                                    transition={{ delay: idx * 0.1 }}
-                                    className="group relative bg-[#f5f5f5] rounded-2xl p-8 hover:bg-black hover:text-white transition-colors duration-500 overflow-hidden flex flex-col justify-between min-h-[300px]"
-                                >
-                                    <div>
-                                        <div className="flex justify-between items-start mb-6">
-                                            <IconComponent size={32} className="opacity-20 group-hover:opacity-100 transition-opacity" />
-                                            {!repo.isExternal && (
-                                                <div className="flex gap-4 text-sm font-medium">
-                                                    <span className="flex items-center gap-1"><Star size={16} /> {repo.stargazers_count}</span>
-                                                    <span className="flex items-center gap-1"><GitFork size={16} /> {repo.forks_count}</span>
-                                                </div>
-                                            )}
-                                            {repo.isExternal && (
-                                                <span className="text-xs bg-black/10 text-black px-3 py-1 rounded-full group-hover:bg-white/20 group-hover:text-white transition-colors">
-                                                    En Producción
-                                                </span>
-                                            )}
+                <motion.div 
+                    variants={containerVariants}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, margin: "-50px" }}
+                    className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+                >
+                    {CUSTOM_PROJECTS.map((repo) => {
+                        const IconComponent = repo.icon;
+                        return (
+                            <motion.div
+                                key={repo.id}
+                                variants={itemVariants}
+                                whileHover={{ y: -10, scale: 1.02 }}
+                                className="group relative bg-[#f5f5f5] border border-black/5 rounded-3xl p-8 hover:bg-black hover:text-white transition-all duration-500 overflow-hidden flex flex-col justify-between min-h-[340px] shadow-sm hover:shadow-2xl"
+                            >
+                                <div className="absolute top-0 right-0 w-32 h-32 bg-black/5 rounded-bl-full -z-10 group-hover:bg-white/10 transition-colors duration-500 blur-2xl"></div>
+                                
+                                <div>
+                                    <div className="flex justify-between items-start mb-6">
+                                        <div className="p-3 bg-white group-hover:bg-white/10 rounded-2xl transition-colors">
+                                            <IconComponent size={28} className="text-black group-hover:text-white transition-colors" />
                                         </div>
-
-                                        <h3 className="text-2xl font-bold mb-3 line-clamp-1">{repo.name}</h3>
-                                        <p className="text-sm opacity-60 line-clamp-3 mb-6 font-light">
-                                            {repo.description || 'Sin descripción disponible.'}
-                                        </p>
+                                        <span className="text-xs bg-black/10 text-black font-semibold px-4 py-1.5 rounded-full group-hover:bg-white/20 group-hover:text-white transition-colors shadow-sm">
+                                            En Producción
+                                        </span>
                                     </div>
 
-                                    <div className="flex items-center justify-between mt-auto pt-6 border-t border-black/10 group-hover:border-white/10 transition-colors">
-                                        <span className="text-xs uppercase tracking-widest font-bold opacity-80">
-                                            {repo.language || 'Code'}
+                                    <h3 className="text-2xl font-bold mb-3 tracking-tight">{repo.name}</h3>
+                                    <p className="text-sm opacity-70 mb-6 font-light leading-relaxed">
+                                        {repo.description}
+                                    </p>
+                                </div>
+
+                                <div className="mt-auto">
+                                    <div className="flex flex-wrap gap-2 mb-6">
+                                        {repo.techStack.map((tech, i) => (
+                                            <span key={i} className="text-xs font-medium px-2 py-1 bg-black/5 group-hover:bg-white/10 rounded-md">
+                                                {tech}
+                                            </span>
+                                        ))}
+                                    </div>
+                                    <div className="flex items-center justify-between pt-5 border-t border-black/10 group-hover:border-white/20 transition-colors">
+                                        <span className="text-xs uppercase tracking-widest font-bold opacity-60 group-hover:opacity-100 transition-opacity">
+                                            Ver Sitio Web
                                         </span>
                                         <a
                                             href={repo.html_url}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="p-3 bg-white text-black rounded-full hover:scale-110 transition-transform"
+                                            className="p-3 bg-black text-white group-hover:bg-white group-hover:text-black rounded-full hover:scale-110 transition-transform shadow-md"
                                         >
-                                            <ExternalLink size={16} />
+                                            <ExternalLink size={18} />
                                         </a>
                                     </div>
-                                </motion.div>
-                            );
-                        })}
-                    </div>
-                )}
+                                </div>
+                            </motion.div>
+                        );
+                    })}
+                </motion.div>
             </div>
         </section>
     );
