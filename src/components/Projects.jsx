@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ExternalLink, Globe } from 'lucide-react';
+import { ExternalLink, Globe, Shield } from 'lucide-react';
 
 // Importar logos
 import logoDjango from '../assets/logos/django.svg';
@@ -173,6 +173,25 @@ const Projects = () => {
                             </motion.div>
                         );
                     })}
+                </motion.div>
+
+                {/* Confidentiality Legend */}
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.4, duration: 0.8 }}
+                    className="mt-16 bg-[#f5f5f5] border border-black/5 rounded-2xl p-6 flex flex-col sm:flex-row items-center sm:items-start gap-5 text-gray-600 hover:shadow-md transition-shadow duration-300"
+                >
+                    <div className="p-3 bg-white rounded-xl shadow-sm border border-black/5">
+                        <Shield size={24} className="text-black" />
+                    </div>
+                    <div>
+                        <h4 className="font-semibold text-black mb-2 text-center sm:text-left text-lg">Experiencia Corporativa y Proyectos Confidenciales</h4>
+                        <p className="text-sm font-light leading-relaxed text-center sm:text-left text-gray-600">
+                            Además de los trabajos mostrados, cuento con experiencia desarrollando diversos <strong>sistemas y proyectos de automatización</strong> en mi entorno laboral. Por acuerdos de confidencialidad, dichos proyectos no pueden ser exhibidos públicamente en este portafolio.
+                        </p>
+                    </div>
                 </motion.div>
             </div>
         </section>
