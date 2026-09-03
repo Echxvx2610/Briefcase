@@ -30,7 +30,7 @@ const Contact = () => {
                 <motion.div
                     initial={{ opacity: 0, y: 50, scale: 0.9 }}
                     whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                    viewport={{ once: true, margin: "-100px" }}
+                    viewport={{ once: true, amount: 0.3 }}
                     transition={{ duration: 0.8, ease: "easeOut" }}
                 >
                     <h2 className="text-6xl md:text-8xl font-black mb-8 tracking-tighter">
@@ -41,7 +41,7 @@ const Contact = () => {
                 <motion.p
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
+                    viewport={{ once: true, amount: 0.3 }}
                     transition={{ delay: 0.2, duration: 0.6 }}
                     className="text-xl md:text-2xl font-light opacity-80 mb-16"
                 >
@@ -51,7 +51,9 @@ const Contact = () => {
                 <motion.div
                     initial={{ opacity: 0, scale: 0.8 }}
                     whileInView={{ opacity: 1, scale: 1 }}
-                    viewport={{ once: true }}
+                    viewport={{ once: true, amount: 0.3 }}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
                     transition={{ 
                         type: "spring",
                         stiffness: 260,
@@ -82,6 +84,7 @@ const Contact = () => {
                     <div className="flex gap-6">
                         <motion.a 
                             whileHover={{ scale: 1.2, color: "#fff" }}
+                            whileTap={{ scale: 0.9 }}
                             href="#" 
                             className="text-white/60 transition-colors"
                         >
@@ -89,6 +92,7 @@ const Contact = () => {
                         </motion.a>
                         <motion.a 
                             whileHover={{ scale: 1.2, color: "#fff" }}
+                            whileTap={{ scale: 0.9 }}
                             href="#" 
                             className="text-white/60 transition-colors"
                         >
@@ -96,6 +100,7 @@ const Contact = () => {
                         </motion.a>
                         <motion.a 
                             whileHover={{ scale: 1.2, color: "#fff" }}
+                            whileTap={{ scale: 0.9 }}
                             href={`mailto:${import.meta.env.VITE_EMAIL || ''}`} 
                             className="text-white/60 transition-colors"
                         >

@@ -46,7 +46,7 @@ const Hero = () => {
             />
 
             {/* Content Layer (mix-blend-difference makes text invert perfectly over the spotlight) */}
-            <div className="relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-10 h-full flex flex-col justify-center mix-blend-difference pointer-events-none">
+            <div className="relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-10 h-full flex flex-col justify-center mix-blend-difference">
                 
                 {/* Main Typography */}
                 <motion.div
@@ -76,9 +76,14 @@ const Hero = () => {
                     {/* Floating tags */}
                     <div className="flex flex-wrap justify-center md:justify-end gap-3 max-w-md">
                         {['Desarrollo Web', 'Sistemas', 'Automatización'].map((tag, index) => (
-                            <span key={index} className="px-4 py-1.5 sm:py-2 rounded-full border border-white/20 text-white text-xs sm:text-sm tracking-widest uppercase bg-white/5 backdrop-blur-sm">
+                            <motion.span 
+                                key={index} 
+                                whileHover={{ scale: 1.05 }}
+                                whileTap={{ scale: 0.95 }}
+                                className="px-4 py-1.5 sm:py-2 rounded-full border border-white/20 text-white text-xs sm:text-sm tracking-widest uppercase bg-white/5 backdrop-blur-sm cursor-pointer"
+                            >
                                 {tag}
-                            </span>
+                            </motion.span>
                         ))}
                     </div>
                 </motion.div>

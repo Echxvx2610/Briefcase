@@ -104,7 +104,7 @@ const Projects = () => {
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: "-100px" }}
+                    viewport={{ once: true, amount: 0.2 }}
                     transition={{ duration: 0.8 }}
                     className="flex flex-col md:flex-row md:items-end justify-between mb-16"
                 >
@@ -118,7 +118,7 @@ const Projects = () => {
                     variants={containerVariants}
                     initial="hidden"
                     whileInView="visible"
-                    viewport={{ once: true, margin: "-50px" }}
+                    viewport={{ once: true, amount: 0.1 }}
                     className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
                 >
                     {CUSTOM_PROJECTS.map((repo) => {
@@ -128,6 +128,7 @@ const Projects = () => {
                                 key={repo.id}
                                 variants={itemVariants}
                                 whileHover={{ y: -10, scale: 1.02 }}
+                                whileTap={{ scale: 0.98 }}
                                 className="group relative bg-[#f5f5f5] border border-black/5 rounded-3xl p-8 hover:bg-black hover:text-white transition-all duration-500 overflow-hidden flex flex-col justify-between min-h-[340px] shadow-sm hover:shadow-2xl"
                             >
                                 <div className="absolute top-0 right-0 w-32 h-32 bg-black/5 rounded-bl-full -z-10 group-hover:bg-white/10 transition-colors duration-500 blur-2xl"></div>
@@ -179,8 +180,10 @@ const Projects = () => {
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.4, duration: 0.8 }}
+                    viewport={{ once: true, amount: 0.2 }}
+                    whileHover={{ y: -5 }}
+                    whileTap={{ scale: 0.98 }}
+                    transition={{ delay: 0.2, duration: 0.8 }}
                     className="mt-16 bg-[#f5f5f5] border border-black/5 rounded-2xl p-6 flex flex-col sm:flex-row items-center sm:items-start gap-5 text-gray-600 hover:shadow-md transition-shadow duration-300"
                 >
                     <div className="p-3 bg-white rounded-xl shadow-sm border border-black/5">
